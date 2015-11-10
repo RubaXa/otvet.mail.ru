@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+	<title>{name}</title>
+
+	<meta name="keywords" content=""/>
+	<meta name="description" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+</head>
+<body>
+
+	<style id="app-style"></style>
+	<div id="app-canvas"></div>
+
+	<!-- CDN -->
+	<script>
+		function include(src) { document.write('<script src="' + src + '"></' + 'script>'); }
+		[].forEach || include('https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.1.14/es5-shim.min.js');
+		window.Promise || include('https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.0.2/es6-promise.min.js');
+		include('https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.18/require.min.js');
+	</script>
+
+	<script>
+		requirejs.config({
+			baseUrl: '/',
+			waitSeconds: 0,
+			config: {'feast': {socket: true}},
+			map: {'*': {'feast-tpl': 'app/vendor/feast/require-feast.js'}},
+			paths: {
+				'feast': 'app/vendor/feast/feast.min',
+				'pilotjs': 'app/vendor/pilotjs/Pilot',
+				'socket.io': 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io'
+			}
+		});
+
+		// Init: Socket.io
+		define('io-socket', ['socket.io'], function (io) {
+			return io(location.protocol + '//' + location.host + '/');
+		});
+
+		// Init: CSS
+		require(['feast'], function (feast) {
+			var pid;
+			var revision = 0;
+			var style = document.getElementById('app-style');
+			var reload = function () {
+				var rev = revision;
+				pid = null;
+				feast.ajax('{feastGUI}bundle.css', function (err, cssText) {
+					if (!err && rev === revision) {
+						style.innerHTML = cssText;
+					}
+				});
+			};
+
+			reload();
+
+			// CSS hotreload
+			feast.config.socket && require(['io-socket'], function (socket) {
+				socket.on('file-changed:scss', function () {
+					if (!pid) {
+						revision++;
+						pid = setTimeout(reload, 30);
+					}
+				});
+			});
+		});
+
+		// Application
+		require(['app/boot'], function (boot) {
+			boot(document.getElementById('app-canvas'), {data}).then(function (app) {
+				window.app = app;
+			});
+		});
+	</script>
+
+</body>
+</html>

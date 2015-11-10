@@ -1,0 +1,54 @@
+<div>
+	<div class="{attrs.type}-leaders">
+		<a class="black list__title" href="{attrs.link}">
+			<fn:value>attrs.title</fn:value>
+		</a>
+
+		<fn:choose>
+			<fn:when test="attrs.type === 'category'">
+				<!-- Category -->
+				<fn:for data="attrs.items.slice(0, 3)" as="u">
+					<div class="user">
+						<div class="user__ava">
+							<b:avatar size="xl" href="/profile/id{u.id}/" email="{u.email}"/>
+						</div>
+						<span class="user__wrapper">
+							<a class="user__name black medium" href="/profile/id{u.id}/">
+								<fn:value>u.nick</fn:value>
+							</a>
+							<div class="user__lvl gray small">
+								<fn:value>u.lvl</fn:value>
+							</div>
+						</span>
+					</div>
+				</fn:for>
+
+				<fn:for data="attrs.items.slice(3)" as="u">
+					<span class="user-small">
+						<b:avatar href="/profile/id{u.id}/" email="{u.email}"/>
+					</span>
+				</fn:for>
+
+				<a class="user-small-button medium gray btn btn_gray" href="/top">•••</a>
+			</fn:when>
+
+			<fn:otherwise>
+				<!-- Questions -->
+				<div class="list">
+					<fn:for data="attrs.items" as="q">
+						<div class="item item_best_questions">
+							<b:avatar href="/profile/id{q.usrid}/" email="{q.email}"/>
+							<a href="/question/{q.id}" class="black medium item__text">
+								<fn:value>q.qtext</fn:value>
+							</a>
+							<a class="small gray item__answer" href="/question/183957197">
+								<i class="icon icon-star" title="В два раза больше баллов за ответ!"></i>
+								<span class="question-leaders-span"><fn:value>q.curr</fn:value> ставок</span>
+							</a>
+						</div>
+					</fn:for>
+				</div>
+			</fn:otherwise>
+		</fn:choose>
+	</div>
+</div>
