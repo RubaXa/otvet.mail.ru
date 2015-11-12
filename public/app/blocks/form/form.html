@@ -1,0 +1,285 @@
+<div>
+	<fn:choose>
+		<fn:when test="attrs.mode === 'fast-ask'">
+			<!-- Задать вопрос -->
+			<form remit:submit="submit" class="q-ask" action="/ask" method="get">
+				<textarea
+					on-input="_this.set('question', evt.target.value);"
+					placeholder="Введите текст своего вопроса"
+					name="q"
+					maxlength="1000"
+					class="q-ask--text"
+				/>
+
+				<div class="q-ask--wrapper">
+					<button class="btn q-ask--button btn-orange" type="submit">
+						<fn:attr name="disabled" test="!(attrs.question || '').length"/>
+						Опубликовать вопрос
+					</button>
+				</div>
+			</form>
+		</fn:when>
+
+		<fn:when test="attrs.mode === 'comment'">
+			<!-- Комментарий -->
+			<fn:var name="maxLength" value="800"/>
+			<fn:var name="currentLength" value="{maxLength - (attrs.comment || '').length}"/>
+
+			<form remit:submit="submit" class="form-form">
+				<div class="form form-add-comment">
+					<span class="form--ava">
+						<b:avatar
+							key="author"
+							email="k.lebedev@corp.mail.ru"
+						/>
+					</span>
+
+					<div class="form--text-border">
+						<textarea
+							on-input="_this.set('comment', evt.target.value);"
+							name="text"
+							class="form--text"
+							placeholder="Введите текст комментария"
+							maxlength="{maxLength}"
+							spellcheck="true"
+							role="textbox"
+							aria-multiline="true"/>
+
+						<div class="form--text-media">
+							<div class="media-container"></div>
+
+							<span class="a ask-add-photo action--upload-photo">
+								<i class="icon icon-add-photo form-add-i"></i>
+								Фото
+							</span>
+
+							<span class="form-add-separator"></span>
+
+							<span class="a ask-add-video action--upload-video">
+								<i class="icon icon-add-video form-add-i"></i>
+								Видео
+							</span>
+
+							<span class="form--count-symbol-container">
+								<span class="count-symbol-left">Символов: </span>
+								<span class="count-symbol-number">
+									<fn:value>currentLength</fn:value>
+								</span>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="form--controls small form--controls-add-comment">
+					<button class="btn btn-orange action--save" type="submit">
+						<fn:attr name="disabled" test="currentLength <= 0"/>
+						<i class="icon icon-buble_W"></i>
+						Комментировать
+					</button>
+				</div>
+
+				<div class="form--bottom"></div>
+			</form>
+		</fn:when>
+
+		<fn:when test="attrs.mode === 'ask'">
+			<!-- Вопрос или Голосование -->
+			<fn:var name="qtextMaxLength" value="{120}"/>
+			<fn:var name="qtextCurrentLength" value="{qtextMaxLength - (attrs.qtext || '').length}"/>
+
+			<fn:var name="textMaxLength" value="{3800}"/>
+			<fn:var name="textCurrentLength" value="{textMaxLength - (attrs.text || '').length}"/>
+
+			<div class="ask-page">
+				<div class="ask-tabs">
+					<span on-click="_this.set('type', 'question')" class="ask-tab">
+						<fn:add-class name="selected" test="attrs.type === 'question'"/>
+						ВОПРОС
+					</span>
+
+					<span on-click="_this.set('type', 'vote')" class="ask-tab">
+						<fn:add-class name="selected" test="attrs.type === 'vote'"/>
+						ОПРОС
+					</span>
+				</div>
+
+				<form class="ask-form">
+					<div class="ask-labels">
+						<label for="ask-text" class="ask-label">
+							<span class="ask-q-only">
+								<fn:value>attrs.type == 'question' ? 'Мой вопрос' : 'Текст опроса'</fn:value>
+							</span>
+							<span class="required-marker">*</span>
+						</label>
+
+						<span class="count-symbol-container">
+							<span class="count-symbol-left">Осталось символов:</span>
+							<span class="count-symbol">
+								<fn:value>qtextCurrentLength</fn:value>
+							</span>
+						</span>
+					</div>
+
+					<textarea
+						on-input="_this.set('qtext', evt.target.value);"
+						maxlength="{qtextMaxLength}"
+						id="ask-text"
+						name="qtext"
+						class="ask-text qtext"
+						placeholder="Введите текст вопроса"
+						/>
+
+					<div class="ask-labels">
+						<label for="ask-description" class="ask-label">
+							<span class="ask-q-only">
+								<fn:value>attrs.type == 'question' ? 'Пояснения к вопросу' : 'Пояснения к опросу'</fn:value>
+							</span>
+						</label>
+					</div>
+
+					<div class="ask-description-placeholder">
+						<div class="form-form">
+							<div class="form">
+								<span class="form--count-symbol-container form--count-symbol-container-outer">
+									<span class="count-symbol-left">Осталось символов:</span>
+									<span class="count-symbol-number">
+										<fn:value>textCurrentLength</fn:value>
+									</span>
+								</span>
+
+								<div class="form--text-border">
+									<textarea
+										on-input="_this.set('text', evt.target.value);"
+										id="ask-description"
+										name="text"
+										class="form--text"
+										placeholder="Введите текст пояснения"
+										maxlength="{textMaxLength}"
+										spellcheck="true"
+										role="textbox"
+										aria-multiline="true"/>
+
+									<div class="form--text-media">
+										<div class="media-container"></div>
+
+										<span class="a ask-add-photo action--upload-photo">
+											<i class="icon icon-add-photo form-add-i"></i>
+											Фото
+										</span>
+
+										<span class="form-add-separator"></span>
+
+										<span class="a ask-add-video action--upload-video">
+											<i class="icon icon-add-video form-add-i"></i>
+											Видео
+										</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="form--controls small"></div>
+							<div class="form--bottom"></div>
+						</div>
+					</div>
+
+					<fn:if test="attrs.type === 'vote'">
+						<div class="ask-v-only ask-vote-items">
+							<div class="ask-labels">
+								<label class="ask-label">Варианты ответов</label>
+							</div>
+
+							<fn:for data="attrs.variants" as="v" key="idx">
+								<div class="ask-vote-item">
+									<input
+										class="ask-vote-input text"
+										maxlength="120"
+										type="text"
+										value="{v}"
+										placeholder="{idx + 1} вариант"/>
+
+									<b on-click="attrs.variants[idx] = ''; _this.render();" class="ask-clear">×</b>
+								</div>
+							</fn:for>
+
+
+							<div>
+								<input
+									type="checkbox"
+									id="ask-allow-multi-vote"
+									name="multi"
+									class="ask-option"
+									/>
+								<label for="ask-allow-multi-vote" class="ask-option-label">
+									Можно выбрать несколько вариантов
+								</label>
+							</div>
+						</div>
+					</fn:if>
+
+					<div class="ask-category-container">
+						<div class="ask-labels">
+							<label for="ask-categories" class="ask-label">
+								Категория
+								<span class="required-marker">*</span>
+							</label>
+						</div>
+
+						<select id="ask-categories" name="cid" class="ask-select ask-categories">
+							<option value="0">Выберите категорию</option>
+
+							<fn:for data="attrs.categories" as="c">
+								<option value="{c.id}">
+									<fn:value>c.name</fn:value>
+								</option>
+							</fn:for>
+						</select>
+					</div>
+
+					<div class="ask-category-container right">
+						<div class="ask-sub-categories hide">
+							<div class="ask-labels">
+								<label for="ask-sub-category" class="ask-label">
+									Подкатегория <span class="required-marker">*</span>
+								</label>
+							</div>
+
+							<select id="ask-sub-category" name="subcid" class="ask-select ask-sub-category">
+								<option value="0">Выберите подкатегорию</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="ask-separator"></div>
+
+					<div class="ask-options">
+						<input type="checkbox" id="ask-receive-email" name="watch" class="ask-option" checked="1"/>
+						<label for="ask-receive-email"  class="ask-option-label">
+							Получать уведомления (ответы, голоса, комментарии)
+						</label>
+					</div>
+
+					<div class="ask-options">
+						<input type="checkbox" id="ask-allow-comments" class="ask-option" name="cancmt" checked="1"/>
+						<label for="ask-allow-comments" class="ask-option-label">
+							Разрешить комментарии к
+							<span class="ask-q-only">ответам</span>
+							<span class="ask-v-only hide">опросу</span>
+						</label>
+					</div>
+
+					<div class="ask-submit">
+						<button type="submit" class="btn btn-orange ask-btn-submit">
+							<span class="ask-q-only">Опубликовать вопрос</span>
+							<span class="ask-v-only hide">Опубликовать опрос</span>
+						</button>
+
+						<div class="ask-disclaimer small">
+							Нажимая эту кнопку, вы принимаете условия<br/>
+							<a target="_blank" href="//help.mail.ru/otvety-help/agreement">пользовательского соглашения</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</fn:when>
+	</fn:choose>
+</div>

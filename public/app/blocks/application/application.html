@@ -1,14 +1,94 @@
 <div>
 	<b:headline/>
-	<b:portal-menu/>
+
+	<b:portal-menu
+		active="{attrs.request.path}"
+		user="{attrs.route.model.currentUser}"
+		categories="{attrs.route.model.categories}"
+	/>
 
 	<b:layout>
-		<fn:match name="left">
-			<b:leaders/>
+		<fn:match name="left" args="layoutAttrs">
+			<fn:choose>
+				<fn:if test="attrs.route.model.category.root">
+					<b:categories-nav
+						active="{attrs.route.model.category.active}"
+						model="{attrs.route.model.category.root}"
+					/>
+				</fn:if>
+
+				<fn:if test="attrs.route.model.leaders.questions">
+					<b:leaders
+						key="question"
+						type="question"
+						href="/stop"
+						title="Вопросы-лидеры"
+						models="{attrs.route.model.leaders.questions}"
+					/>
+				</fn:if>
+
+				<fn:if test="attrs.route.model.leaders.users">
+					<b:leaders
+						key="category"
+						type="category"
+						href="/top"
+						title="Лидеры проекта"
+						models="{attrs.route.model.leaders.users}"
+					/>
+				</fn:if>
+
+				<fn:when test="attrs.route.is('#ask')">
+					<!-- Профиль -->
+					<b:user-card model="{attrs.currentUser}" />
+				</fn:when>
+			</fn:choose>
 		</fn:match>
 
-		<fn:match name="center">
-			List
+		<fn:match name="center" args="layoutAttrs">
+			<div class="page">
+				<fn:choose>
+					<fn:when test="attrs.route.is('#index')">
+						<!-- Index -->
+						<b:form
+							mode="fast-ask"
+						/>
+
+						<h1 class="page-index--h1 bordered">Вопросы участников</h1>
+
+						<b:tabs
+							active="{attrs.request.path}"
+							items="{attrs.tabs.index}"
+						/>
+
+						<b:questions
+							items="{attrs.route.model.questions}"
+						/>
+					</fn:when>
+
+					<fn:when test="attrs.route.is('#ask')">
+						<!-- Спросить -->
+						<b:form
+							mode="ask"
+							type="question"
+						/>
+					</fn:when>
+
+					<fn:when test="attrs.route.is('#question')">
+						<!-- Вопрос -->
+						<b:question
+							model="{attrs.route.model.question}"
+						/>
+					</fn:when>
+
+					<fn:when test="attrs.route.is('#top')">
+						<!-- Лидеры -->
+						<b:leaders
+							type="project"
+							models="{attrs.route.model.top}"
+						/>
+					</fn:when>
+				</fn:choose>
+			</div>
 		</fn:match>
 	</b:layout>
 </div>

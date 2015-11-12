@@ -1,0 +1,83 @@
+<div>
+	<div class="q--head hentry question">
+		<span class="q--ava">
+			<b:avatar
+				size="xl"
+				href="/profile/id{attrs.model.usrid}/"
+				email="{attrs.model.oemail}"
+			/>
+		</span>
+
+		<h1 class="q--qtext entry-title">
+			<index><fn:value>attrs.model.qtext</fn:value></index>
+		</h1>
+
+		<a class="q--user small author" href="/profile/id207025662/">
+			<b><fn:value>attrs.model.nick</fn:value></b>
+		</a>
+
+		<span class="gray small">,
+			<span class="author-rating">
+				<span class="value-title">
+					<fn:value>attrs.model.lvl</fn:value>
+				</span>
+			</span>
+
+			(<fn:value>attrs.model.points</fn:value>), Вопрос открыт
+
+			<span class="published">
+				<fn:value>Math.floor(attrs.model.added/60)</fn:value> минут назад
+			</span>
+		</span>
+
+		<div class="q--qcomment medium entry-content">
+			<fn:value output="raw">attrs.model.qcomment</fn:value>
+		</div>
+
+		<div class="actions">
+			<noindex>
+				<div class="actions--left">
+					<button class="btn btn-mark action--need-auth" rel="nofollow" type="button" title="Нравится">
+						<i class="icon icon-like"></i>
+						<span class="btn--text"> Нравится</span>
+					</button>
+
+					<button rel="nofollow" class="btn action--watch action--need-auth" title="Подписаться">
+						<i class="icon icon-watch-black"></i>
+						<span class="btn--text-autohide btn--text"> Подписаться</span>
+					</button>
+
+					<button rel="nofollow" class="btn btn-orange action--scroll-to-reply action--need-auth" title="Ответить">
+						<i class="icon icon-buble_W"></i>
+						<span class="btn--text"> Ответить</span>
+					</button>
+
+					<button title="Пожаловаться" rel="nofollow" class="btn action--abuse action--need-auth">
+						<i class="icon icon-abuse-black btn--i-only" title="Пожаловаться"></i>
+					</button>
+
+					<button rel="nofollow" class="btn action--sms" title="Сделать вопрос лидером">
+						<i class="icon icon-star-gray btn--i-only"></i>
+					</button>
+				</div>
+
+				<br clear="both"/>
+			</noindex>
+		</div>
+	</div>
+
+	<div class="container-for-answers">
+		<div class="h-title">
+			<strong class="h-title--b">
+				<fn:value>attrs.model.anscnt</fn:value> ответов
+			</strong>
+		</div>
+
+		<fn:for data="attrs.model.answers" as="answer">
+			<b:answer
+				key="{answer.id}"
+				model="{answer}"
+			/>
+		</fn:for>
+	</div>
+</div>

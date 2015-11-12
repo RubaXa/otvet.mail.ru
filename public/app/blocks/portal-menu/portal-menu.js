@@ -10,5 +10,17 @@ import template from 'feast-tpl!./portal-menu.html';
 export default feast.Block.extend(/** @lends UIPortalMenu# */{
 	name: 'portal-menu',
 	template: template,
-	blocks: {}
+	blocks: {},
+
+	attrChanged: {
+		expandedCategories(state) {
+			this[state ? '$on' : '$off'](this.el.ownerDocument, 'click', 'handleOutsideClick');
+		}
+	},
+
+	handleOutsideClick(evt) {
+		if (!this.refs.categories.contains(evt.target)) {
+			this.set('expandedCategories', false);
+		}
+	}
 });

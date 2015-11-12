@@ -1,3 +1,165 @@
 <div>
-	
+	<div class="portal-menu__toolbar w-pm-menu">
+		<div class="portal-menu_width">
+			<div class="pm-menu">
+				<div class="pm-menu__left">
+					<div class="pm-menu__left__inner">
+						<div class="pm-logo pm-logo_press" style="padding-left: 38px; padding-right: 38px;">
+							<a class="pm-logo__link" href="/" style="width:170px">
+								<img class="pm-logo__link__pic"
+									 src="https://otvet.mail.ru/images/logo.png"
+									 alt="Ответы@Mail.Ru"
+									 title="Ответы@Mail.Ru"
+									 width="170" height="36"
+									 style="margin-top: 8px;"/>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="pm-menu__center">
+					<div class="pm-menu__center__inner" style="visibility: visible;">
+						<span class="pm-toolbar" style="position: static">
+							<span class="js-group pm-toolbar__group">
+								<!-- Категории -->
+								<span class="js-button pm-toolbar__button  pm-toolbar__button_dropdown pm-toolbar__button_first">
+									<span ref="categories" on-click="_this.invert('expandedCategories')" class="js-link pm-toolbar__button__inner  pm-toolbar__button__inner_dropdown" title="Список категорий" style=" z-index: 201;">
+										<fn:add-class name="pm-toolbar__button__inner_open" test="attrs.expandedCategories"/>
+
+										<span class="js-numbers pm-toolbar__button__numbers  pm-toolbar__button__numbers_dropdown pm-toolbar__button__numbers_one-digit">0</span>
+
+										<span class="js-icon pm-toolbar__button__icon  pm-toolbar__button__icon_dropdown pm-toolbar__button__icon_text">
+											<span class="pm-toolbar__button__icon__img  pm-toolbar__button__icon__img_dropdown pm-uh-list">
+												<span class="pm-toolbar__button__icon__num  pm-toolbar__button__icon__num_dropdown pm-icon__num"></span>
+											</span>
+										</span>
+
+										<span class="js-icon-inverted pm-toolbar__button__icon pm-toolbar__button__icon_dropdown pm-toolbar__button__icon_text pm-toolbar__button__icon_open">
+											<fn:add-class name="pm-toolbar__button__icon_inverted" test="attrs.expandedCategories"/>
+
+											<span class="pm-toolbar__button__icon__wrap  pm-toolbar__button__icon__wrap_inverted pm-toolbar__button__icon__wrap_dropdown">
+												<span class="pm-toolbar__button__icon__img  pm-toolbar__button__icon__img_inverted pm-toolbar__button__icon__img_dropdown pm-uh-list-i">
+													<span class="pm-toolbar__button__icon__num  pm-toolbar__button__icon__num_inverted pm-toolbar__button__icon__num_dropdown pm-icon__num"></span>
+												</span>
+											</span>
+										</span>
+
+										<span class="js-text pm-toolbar__button__text  pm-toolbar__button__text_dropdown">
+											<span class="js-text-inner pm-toolbar__button__text__inner  pm-toolbar__button__text__inner_dropdown">Категории</span>
+										</span>
+									</span>
+
+									<span class="js-dropdown pm-toolbar__dropdown  categories pm-toolbar__dropdown_right" style="height: 442px; width: 750px; z-index: 200;">
+										<fn:add-class name="pm-toolbar__dropdown_ready pm-toolbar__dropdown_visible pm-toolbar__dropdown_show" test="attrs.expandedCategories"/>
+
+										<span class="pm-toolbar__dropdown__col  pm-toolbar__dropdown__col_level_1" style="left: 0;">
+											<span class="js-item pm-toolbar__dropdown__item  top bordered-bottom bold" role="button">
+												<a class="js-link pm-toolbar__dropdown__item__inner  top bordered-bottom bold" href="/" role="button">
+													<span class="js-text pm-toolbar__dropdown__item__text">Все вопросы проекта</span>
+												</a>
+											</span>
+
+											<span class="js-item pm-toolbar__dropdown__item" role="button">
+												<fn:for data="attrs.categories.slice(1, 13)" as="c">
+													<a class="js-link pm-toolbar__dropdown__item__inner" href="/{c.urlname}/" role="button">
+														<span class="js-text pm-toolbar__dropdown__item__text">
+															<fn:value>c.name</fn:value>
+														</span>
+													</a>
+												</fn:for>
+											</span>
+										</span>
+
+										<span class="pm-toolbar__dropdown__col  pm-toolbar__dropdown__col_level_1" style="left: 272px;">
+											<fn:for data="attrs.categories.slice(13, 24)" as="c">
+												<a class="js-link pm-toolbar__dropdown__item__inner" href="/{c.urlname}/" role="button">
+													<span class="js-text pm-toolbar__dropdown__item__text">
+														<fn:value>c.name</fn:value>
+													</span>
+												</a>
+											</fn:for>
+										</span>
+
+										<span class="pm-toolbar__dropdown__col  pm-toolbar__dropdown__col_level_1" style="left: 515px;">
+											<fn:for data="attrs.categories.slice(24)" as="c">
+												<a class="js-link pm-toolbar__dropdown__item__inner" href="/{c.urlname}/" role="button">
+													<span class="js-text pm-toolbar__dropdown__item__text">
+														<fn:value>c.name</fn:value>
+													</span>
+												</a>
+											</fn:for>
+										</span>
+									</span>
+
+								</span>
+
+								<!-- Спросить -->
+								<span class="js-button pm-toolbar__button pm-toolbar__button_current">
+									<fn:add-class name="pm-toolbar__button_current" test="attrs.active == '/ask'"/>
+
+									<a class="js-link pm-toolbar__button__inner" href="/ask" title="Задать вопрос">
+										<fn:add-class name="pm-toolbar__button__inner_current" test="attrs.active == '/ask'"/>
+
+										<span class="js-numbers pm-toolbar__button__numbers pm-toolbar__button__numbers_one-digit">0</span>
+										<span class="js-icon pm-toolbar__button__icon  pm-toolbar__button__icon_text">
+											<span class="pm-toolbar__button__icon__img pm-uh-add">
+												<span class="pm-toolbar__button__icon__num pm-icon__num"></span>
+											</span>
+										</span>
+
+										<span class="js-text pm-toolbar__button__text">
+											<span class="js-text-inner pm-toolbar__button__text__inner">Спросить</span>
+										</span>
+									</a>
+								</span>
+
+								<!-- Лидеры -->
+								<span class="js-button pm-toolbar__button pm-toolbar__button_current">
+									<fn:add-class name="pm-toolbar__button_current" test="attrs.active == '/top'"/>
+
+									<a class="js-link pm-toolbar__button__inner" href="/top" title="Задать вопрос">
+										<fn:add-class name="pm-toolbar__button__inner_current" test="attrs.active == '/top'"/>
+
+										<span class="js-numbers pm-toolbar__button__numbers pm-toolbar__button__numbers_one-digit">0</span>
+										<span class="js-icon pm-toolbar__button__icon  pm-toolbar__button__icon_text">
+											<span class="pm-toolbar__button__icon__img pm-uh-compare">
+												<span class="pm-toolbar__button__icon__num pm-icon__num"></span>
+											</span>
+										</span>
+
+										<span class="js-text pm-toolbar__button__text">
+											<span class="js-text-inner pm-toolbar__button__text__inner">Лидеры</span>
+										</span>
+									</a>
+								</span>
+							</span>
+
+							<span class="js-group pm-toolbar__group pm-toolbar__group_press" style="float: right">
+								<span class="js-button pm-toolbar__button  pm-toolbar__button_notext pm-toolbar__button_avatar pm-toolbar__button_always-visible">
+									<a title="Личный кабинет, {attrs.user.name}" href="/profile/id{attrs.user.id}" class="js-link pm-toolbar__button__inner  pm-toolbar__button__inner_notext pm-toolbar__button__inner_avatar">
+										<fn:add-class name="pm-toolbar__button__inner_current" test="attrs.active == '/profile/id' + attrs.user.id"/>
+
+										<fn:if test="attrs.unread">
+											<span class="js-numbers pm-toolbar__button__numbers  pm-toolbar__button__numbers_notext pm-toolbar__button__numbers_avatar pm-toolbar__button__numbers_one-digit pm-toolbar__button__numbers_visible">
+												<fn:value>attrs.unread</fn:value>
+											</span>
+										</fn:if>
+
+										<span class="js-icon pm-toolbar__button__icon  pm-toolbar__button__icon_notext pm-toolbar__button__icon_avatar">
+											<span
+												class="pm-toolbar__button__icon__img  pm-toolbar__button__icon__img_notext pm-toolbar__button__icon__img_avatar pm-toolbar__button__avatar"
+												style="background-image: url(https://filin.my.com/pic?email={attrs.user.email}&width=32&height=32&name={encodeURIComponent(attrs.user.name)});"
+												></span>
+										</span>
+									</a>
+								</span>
+
+								<span class="js-button pm-toolbar__button  pm-toolbar__button_notext pm-toolbar__button_dropdown pm-toolbar__button_last-in-group pm-toolbar__button_last" data-config-id="14" bem-id="211" style="z-index: 96;"><span class="js-link pm-toolbar__button__inner  pm-toolbar__button__inner_notext pm-toolbar__button__inner_dropdown" title="Уведомления" tabindex="0" bem-id="202" role="button"><span class="js-numbers pm-toolbar__button__numbers  pm-toolbar__button__numbers_notext pm-toolbar__button__numbers_dropdown pm-toolbar__button__numbers_one-digit" bem-id="214">0</span><span class="js-icon pm-toolbar__button__icon  pm-toolbar__button__icon_notext pm-toolbar__button__icon_dropdown" data-icon="pm-uh-notification" data-icon-num="" bem-id="205"><span class="pm-toolbar__button__icon__img  pm-toolbar__button__icon__img_notext pm-toolbar__button__icon__img_dropdown pm-uh-notification" style="left: 0px; top: 0px;"><span class="pm-toolbar__button__icon__num  pm-toolbar__button__icon__num_notext pm-toolbar__button__icon__num_dropdown pm-icon__num"></span></span></span><span class="js-icon-inverted pm-toolbar__button__icon  pm-toolbar__button__icon_inverted pm-toolbar__button__icon_notext pm-toolbar__button__icon_dropdown" data-icon="pm-uh-notification-i" data-icon-num="" bem-id="208"><span class="pm-toolbar__button__icon__wrap  pm-toolbar__button__icon__wrap_inverted pm-toolbar__button__icon__wrap_notext pm-toolbar__button__icon__wrap_dropdown"><span class="pm-toolbar__button__icon__img  pm-toolbar__button__icon__img_inverted pm-toolbar__button__icon__img_notext pm-toolbar__button__icon__img_dropdown pm-uh-notification-i" style="left: 0px; top: 0px;"><span class="pm-toolbar__button__icon__num  pm-toolbar__button__icon__num_inverted pm-toolbar__button__icon__num_notext pm-toolbar__button__icon__num_dropdown pm-icon__num"></span></span></span></span></span><span class="js-dropdown pm-toolbar__dropdown" data-class="pm-dropdown" data-config-id="15" bem-id="218"><span class="pm-toolbar__dropdown__col" bem-id="221"><div class="nf--position hide"></div></span></span></span>
+							</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

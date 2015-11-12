@@ -1,13 +1,11 @@
 <div>
 	<div class="{attrs.type}-leaders">
-		<a class="black list__title" href="{attrs.link}">
-			<fn:value>attrs.title</fn:value>
-		</a>
-
 		<fn:choose>
 			<fn:when test="attrs.type === 'category'">
 				<!-- Category -->
-				<fn:for data="attrs.items.slice(0, 3)" as="u">
+				<a class="black list__title" href="{attrs.href}"><fn:value>attrs.title</fn:value></a>
+
+				<fn:for data="attrs.models.slice(0, 3)" as="u">
 					<div class="user">
 						<div class="user__ava">
 							<b:avatar size="xl" href="/profile/id{u.id}/" email="{u.email}"/>
@@ -23,7 +21,7 @@
 					</div>
 				</fn:for>
 
-				<fn:for data="attrs.items.slice(3)" as="u">
+				<fn:for data="attrs.models.slice(3)" as="u">
 					<span class="user-small">
 						<b:avatar href="/profile/id{u.id}/" email="{u.email}"/>
 					</span>
@@ -32,10 +30,12 @@
 				<a class="user-small-button medium gray btn btn_gray" href="/top">•••</a>
 			</fn:when>
 
-			<fn:otherwise>
+			<fn:when test="attrs.type === 'question'">
 				<!-- Questions -->
+				<a class="black list__title" href="{attrs.href}"><fn:value>attrs.title</fn:value></a>
+
 				<div class="list">
-					<fn:for data="attrs.items" as="q">
+					<fn:for data="attrs.models" as="q">
 						<div class="item item_best_questions">
 							<b:avatar href="/profile/id{q.usrid}/" email="{q.email}"/>
 							<a href="/question/{q.id}" class="black medium item__text">
@@ -48,7 +48,55 @@
 						</div>
 					</fn:for>
 				</div>
-			</fn:otherwise>
+			</fn:when>
+
+			<fn:when test="attrs.type === 'project'">
+				<!-- Week -->
+				<div class="base">
+					<i class="grayscale top-bg grayscale-bg_grey"></i>
+					<div class="big black base__title">Лидеры по набранным баллам за неделю</div>
+
+					<fn:for data="attrs.models.slice(0, 3)" key="idx">
+						<fn:var name="pos" value="{!idx ? 2 : (idx == 1 ? 1 : 3)}"/>
+						<fn:var name="model" value="{attrs.models[pos - 1]}"/>
+						<fn:var name="size" value="{pos == 2 ? 107 : (pos == 1 ? 125 : 90)}"/>
+
+						<div class="user user_base user_base_{pos}">
+							<a href="/profile/id{model.usrid}/" class="small-avatar">
+								<img class="user__ava"
+									src="//filin.mail.ru/pic?email={model.email}&width={size}&height={size}"
+									width="{size}"
+								/>
+							</a>
+
+							<a href="/profile/id{model.usrid}/" class="black user__name"><fn:value>model.nick</fn:value></a>
+							<div class="small gray user__rank"><fn:value>model.lvl</fn:value></div>
+							<div class="small orange user__points"><fn:value>model.points</fn:value></div>
+						</div>
+					</fn:for>
+				</div>
+
+				<div class="top-others">
+					<fn:for data="attrs.models.slice(3)" key="idx" as="model">
+						<div class="user {idx % 2 ? 'right' : 'left'}">
+							<div class="small user__position"><fn:value>idx + 4</fn:value>.</div>
+
+							<a href="/profile/id{model.usrid}/" class="user__tooltip small-avatar">
+								<img class="user__ava" src="//filin.mail.ru/pic?email={model.email}&width=45&height=45" height="45" alt=""/>
+							</a>
+
+							<a href="/profile/id{model.usrid}/" class="user__name"><fn:value>model.nick</fn:value></a>
+							<div class="small gray user__rank"><fn:value>model.lvl</fn:value></div>
+							<div class="small orange user__points"><fn:value>model.points</fn:value></div>
+						</div>
+					</fn:for>
+				</div>
+
+				<div class="gray_bg">
+					<button class="btn btn-more btn-blue " type="button">Показать ещё</button>
+					<div class="gray medium me hide"></div>
+				</div>
+			</fn:when>
 		</fn:choose>
 	</div>
 </div>

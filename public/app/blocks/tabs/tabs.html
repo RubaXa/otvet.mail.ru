@@ -1,0 +1,10 @@
+<div>
+	<div class="tabs--h">
+		<fn:for data="attrs.items" as="tab">
+			<a class="tab {attrs.active == tab.href ? ' selected' : ''}">
+				<fn:attr name="href" value="{tab.href}" test="attrs.active != tab.href"/>
+				<fn:value>tab.text</fn:value>
+			</a>
+		</fn:for>
+	</div>
+</div>

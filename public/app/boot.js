@@ -18,7 +18,7 @@ export default function (el, data) {
 	const view = new UIApplication(getViewAttrs());
 
 	router.view = view;
-	router.on('routeend', () => {
+	router.on('route', () => {
 		view.set(getViewAttrs());
 	});
 
@@ -32,7 +32,8 @@ export default function (el, data) {
 			do {
 				if ((el.nodeName === 'A') && (el.target !== '_blank') && (el.host === location.host)) {
 					if (history.pushState) {
-						history.pushState(el.href);
+						router.nav(el.href);
+						history.pushState(null, null, el.href);
 					} else {
 						location.hash = '#!' + el.href.split('#!').pop();
 					}
@@ -49,5 +50,5 @@ export default function (el, data) {
 	};
 
 	// Run
-	return router.nav(location.toString().split('#!').pop());
+	return router.nav(location.toString().split('#!').pop()).then(() => router);
 };

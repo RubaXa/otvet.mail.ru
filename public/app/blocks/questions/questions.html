@@ -1,0 +1,33 @@
+<div>
+	<fn:for data="attrs.items" as="q">
+		<div class="q--li">
+			<span class="q--li--ava">
+				<b:avatar
+					href="/profile/id{q.usrid}/"
+					email="{q.email}"
+				/>
+			</span>
+
+			<a href="/question/{q.id}" class="q--li--text">
+				<fn:value>q.qtext</fn:value>
+			</a>
+
+			<div class="q--li--stats">
+				<a href="/profile/id{q.usrid}/" class="q--li--stat">
+					<fn:value>q.nick</fn:value>
+				</a>
+
+				<div class="q--li--stat"> в </div>
+				<a href="/{q.urlname}/" class="q--li--stat">
+					<fn:value>q.catname</fn:value>
+				</a>
+
+				<div class="q--li--stat">, <fn:value>Math.floor(q.added/60)</fn:value> минуту назад</div>
+				<a class="q--li--stat gray-d" href="/question/{q.id}" title="Вопрос открыт">
+					<i class="q--li--stat--bull">•</i>
+					<i class="icon icon-buble_A"></i>ответить
+				</a>
+			</div>
+		</div>
+	</fn:for>
+</div>

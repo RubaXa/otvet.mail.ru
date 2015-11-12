@@ -1,0 +1,18 @@
+<div>
+	<div class="current-category">
+		<div class="list">
+			<a href="/{attrs.model.urlname}/" class="black list__title">
+				<span itemprop="title">
+					<fn:value>attrs.model.name</fn:value>
+				</span>
+			</a>
+
+			<fn:for data="attrs.model.categories" as="c">
+				<a href="/{c.urlname}/" class="medium item item_link">
+					<fn:add-class name="selected" test="c.id == attrs.active"/>
+					<fn:value>c.name</fn:value>
+				</a>
+			</fn:for>
+		</div>
+	</div>
+</div>

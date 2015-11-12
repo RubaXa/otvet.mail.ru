@@ -1,0 +1,60 @@
+<div>
+	<div class="a--box hentry answer ">
+		<span class="a--ava">
+			<b:avatar
+				key="{attrs.model.id}"
+				href="/profile/id{attrs.model.usrid}/"
+				email="{attrs.model.oemail}"
+			/>
+		</span>
+
+		<div class="a--author-container">
+			<a class="author a--author" href="/profile/id{attrs.model.usrid}/">
+				<b><fn:value>attrs.model.nick</fn:value></b>
+				<span class="author-rating">,
+					<span class="value-title"><fn:value>attrs.model.lvl</fn:value></span>
+				</span>
+				(<fn:value>attrs.model.points</fn:value>)
+			</a>,
+			<a href="/answer/{attrs.model.id}" class="published a--added">19 минут назад</a>
+		</div>
+
+		<div class="a--atext atext entry-title">
+			<fn:value>attrs.model.atext</fn:value>
+		</div>
+
+		<div class="a-buttons js-track_visibility">
+			<noindex>
+				<button class="btn btn-mark btn-clear action--mark action--need-auth" rel="nofollow" type="button" title="Нравится">
+					<i class="icon icon-like-gray"></i>
+					<span class="btn--text"> Нравится</span>
+				</button>
+
+				<button on-click="_this.invert('expanded')" title="Комментировать" rel="nofollow" type="button" class="btn btn-clear btn-com-ref-1789058471 action--show-comment-form  action--toggle-comments">
+					<i class="icon icon-buble_gray"></i>
+					<span class="btn--text">
+						<fn:value>attrs.model.comcnt</fn:value>
+						Комментировать
+					</span>
+				</button>
+
+				<button title="Пожаловаться на ответ" rel="nofollow" type="button" class="btn btn-clear action--abuse action--need-auth">
+					<i class="icon icon-abuse-gray"></i>
+					<span class="btn--text"> Пожаловаться</span>
+				</button>
+			</noindex>
+		</div>
+	</div>
+
+	<fn:if test="attrs.expanded">
+		<div class="a--comments">
+			<div class="add-comment-to-answer">
+				<b:form key="add-comment" mode="comment"/>
+			</div>
+
+			<fn:for data="attrs.model.comments" as="comment">
+				<b:answer key="{comment.cmid}" model="{comment}"/>
+			</fn:for>
+		</div>
+	</fn:if>
+</div>
