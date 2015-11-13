@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="a--atext atext entry-title">
-			<fn:value>attrs.model.atext</fn:value>
+			<fn:value>attrs.model.atext || attrs.model.cmtext</fn:value>
 		</div>
 
 		<div class="a-buttons js-track_visibility">
@@ -33,7 +33,7 @@
 				<button on-click="_this.invert('expanded')" title="Комментировать" rel="nofollow" type="button" class="btn btn-clear btn-com-ref-1789058471 action--show-comment-form  action--toggle-comments">
 					<i class="icon icon-buble_gray"></i>
 					<span class="btn--text">
-						<fn:value>attrs.model.comcnt</fn:value>
+						<fn:value>attrs.model.comments.length</fn:value>
 						Комментировать
 					</span>
 				</button>

@@ -10,40 +10,38 @@
 
 	<b:layout key="grid">
 		<fn:match name="left" args="layoutAttrs">
-			<fn:choose>
-				<fn:if test="attrs.route.model.category.root">
-					<b:categories-nav
-						key="nav"
-						active="{attrs.route.model.category.active}"
-						model="{attrs.route.model.category.root}"
-					/>
-				</fn:if>
+			<fn:if test="attrs.route.model.category.root">
+				<b:categories-nav
+					key="nav"
+					active="{attrs.route.model.category.active}"
+					model="{attrs.route.model.category.root}"
+				/>
+			</fn:if>
 
-				<fn:if test="attrs.route.model.leaders.questions">
-					<b:leaders
-						key="question"
-						type="question"
-						href="/stop"
-						title="Вопросы-лидеры"
-						models="{attrs.route.model.leaders.questions}"
-					/>
-				</fn:if>
+			<fn:if test="attrs.route.model.leaders.questions">
+				<b:leaders
+					key="question"
+					type="question"
+					href="/stop"
+					title="Вопросы-лидеры"
+					models="{attrs.route.model.leaders.questions}"
+				/>
+			</fn:if>
 
-				<fn:if test="attrs.route.model.leaders.users">
-					<b:leaders
-						key="category"
-						type="category"
-						href="/top"
-						title="Лидеры проекта"
-						models="{attrs.route.model.leaders.users}"
-					/>
-				</fn:if>
+			<fn:if test="attrs.route.model.leaders.users">
+				<b:leaders
+					key="category"
+					type="category"
+					href="/top"
+					title="Лидеры проекта"
+					models="{attrs.route.model.leaders.users}"
+				/>
+			</fn:if>
 
-				<fn:when test="attrs.route.is('#ask')">
-					<!-- Профиль -->
-					<b:user-card key="uc" model="{attrs.currentUser}" />
-				</fn:when>
-			</fn:choose>
+			<fn:if test="attrs.route.is('#ask')">
+				<!-- Профиль -->
+				<b:user-card key="cu" model="{attrs.route.model.currentUser}" />
+			</fn:if>
 		</fn:match>
 
 		<fn:match name="center" args="layoutAttrs">
