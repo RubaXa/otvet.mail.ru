@@ -1,17 +1,19 @@
 <div>
-	<b:headline/>
+	<b:headline key="hl"/>
 
 	<b:portal-menu
+		key="pm"
 		active="{attrs.request.path}"
 		user="{attrs.route.model.currentUser}"
 		categories="{attrs.route.model.categories}"
 	/>
 
-	<b:layout>
+	<b:layout key="grid">
 		<fn:match name="left" args="layoutAttrs">
 			<fn:choose>
 				<fn:if test="attrs.route.model.category.root">
 					<b:categories-nav
+						key="nav"
 						active="{attrs.route.model.category.active}"
 						model="{attrs.route.model.category.root}"
 					/>
@@ -39,7 +41,7 @@
 
 				<fn:when test="attrs.route.is('#ask')">
 					<!-- Профиль -->
-					<b:user-card model="{attrs.currentUser}" />
+					<b:user-card key="uc" model="{attrs.currentUser}" />
 				</fn:when>
 			</fn:choose>
 		</fn:match>
@@ -50,17 +52,20 @@
 					<fn:when test="attrs.route.is('#index')">
 						<!-- Index -->
 						<b:form
+							key="fast-ask"
 							mode="fast-ask"
 						/>
 
 						<h1 class="page-index--h1 bordered">Вопросы участников</h1>
 
 						<b:tabs
+							key="index-tabs"
 							active="{attrs.request.path}"
 							items="{attrs.tabs.index}"
 						/>
 
 						<b:questions
+							key="qlist"
 							items="{attrs.route.model.questions}"
 						/>
 					</fn:when>
@@ -68,6 +73,7 @@
 					<fn:when test="attrs.route.is('#ask')">
 						<!-- Спросить -->
 						<b:form
+							key="ask"
 							mode="ask"
 							type="question"
 						/>
@@ -76,6 +82,7 @@
 					<fn:when test="attrs.route.is('#question')">
 						<!-- Вопрос -->
 						<b:question
+							key="q"
 							model="{attrs.route.model.question}"
 						/>
 					</fn:when>
@@ -83,6 +90,7 @@
 					<fn:when test="attrs.route.is('#top')">
 						<!-- Лидеры -->
 						<b:leaders
+							key="top"
 							type="project"
 							models="{attrs.route.model.top}"
 						/>

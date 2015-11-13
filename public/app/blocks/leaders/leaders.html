@@ -8,7 +8,11 @@
 				<fn:for data="attrs.models.slice(0, 3)" as="u">
 					<div class="user">
 						<div class="user__ava">
-							<b:avatar size="xl" href="/profile/id{u.id}/" email="{u.email}"/>
+							<b:avatar
+								key="{u.usrid}"
+								size="xl"
+								href="/profile/id{u.usrid}/"
+								email="{u.email}"/>
 						</div>
 						<span class="user__wrapper">
 							<a class="user__name black medium" href="/profile/id{u.id}/">
@@ -23,7 +27,10 @@
 
 				<fn:for data="attrs.models.slice(3)" as="u">
 					<span class="user-small">
-						<b:avatar href="/profile/id{u.id}/" email="{u.email}"/>
+						<b:avatar
+							key="{u.usrid}"
+							href="/profile/id{u.usrid}/"
+							email="{u.email}"/>
 					</span>
 				</fn:for>
 
@@ -37,11 +44,16 @@
 				<div class="list">
 					<fn:for data="attrs.models" as="q">
 						<div class="item item_best_questions">
-							<b:avatar href="/profile/id{q.usrid}/" email="{q.email}"/>
+							<b:avatar
+								key="{q.id}"
+								href="/profile/id{q.usrid}/"
+								email="{q.email}"/>
+
 							<a href="/question/{q.id}" class="black medium item__text">
 								<fn:value>q.qtext</fn:value>
 							</a>
-							<a class="small gray item__answer" href="/question/183957197">
+
+							<a class="small gray item__answer" href="/question/{q.id}">
 								<i class="icon icon-star" title="В два раза больше баллов за ответ!"></i>
 								<span class="question-leaders-span"><fn:value>q.curr</fn:value> ставок</span>
 							</a>

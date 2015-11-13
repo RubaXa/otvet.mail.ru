@@ -8,8 +8,8 @@ export default {
 	cases: {
 		'base': {
 			attrs: {
-				active: `/${category.categories[0].urlname}/`,
-				category: category
+				active: category.categories[0].id,
+				model: category
 			}
 		}
 	}
